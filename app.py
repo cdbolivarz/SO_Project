@@ -5,10 +5,11 @@ app = Flask(__name__)
 @app.route("/")
 def home_func():
     return render_template("home.html")
+
 @app.route('/pagina')
 def indexpag():
-    return "Vista pagina web"
+    return render_template("/pagina/index.html")
 
 @app.route('/carpetas')
 def indexdoc():
-    return "Vista carpetas actuales"
+    return render_template("/carpetas/index.html")

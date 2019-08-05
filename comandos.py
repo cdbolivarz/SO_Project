@@ -34,8 +34,13 @@ def verContenido(ruta):
     return l
 
 def verContenidoArchivo(nombre):
-    cat = subprocess.run(['cat', 'app.py'],stdout = subprocess.PIPE,stderr=subprocess.PIPE, universal_newlines=True)
-    return cat.stdout
+    cat = subprocess.run(['cat', nombre],stdout = subprocess.PIPE,stderr=subprocess.PIPE, universal_newlines=True)
+    l = []
+    l.append({
+        "nombre":nombre,
+        "contenido":cat.stdout
+    })
+    return l
 
 def crearArchivo(nombre):
     os.system("touch " + nombre)

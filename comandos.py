@@ -19,12 +19,18 @@ def verContenido(ruta):
     ls = str(subprocess.check_output("ls -l ficheros" + ruta, shell = True))
     ls = ls.split('\\')
     aux = []
-    l = []  
+    l = []
     for elemento in ls[1:len(ls)-1]:
         aux = elemento.split(' ')
         aux = [x for x in aux if x]
         aux.pop(1)
-        l.append(aux)
+        l.append({
+            'permisos': aux[0],
+            'usuario': aux[1],
+            'grupo': aux[2],
+            'peso': aux[3],
+            'fecha': aux[4] + " "+ aux[5] + " " + aux[6],
+            'nombre': aux[7]})
     return l
 
 def verContenidoArchivo(nombre):

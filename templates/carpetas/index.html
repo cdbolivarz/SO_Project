@@ -4,9 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/bootstrap/dist/css/bootstrap.css') }}">
+    <script src = "{{ url_for('static',filename='scripts/jquery.js') }}"></script>
+    <script src = "{{ url_for('static',filename='styles/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/main.css') }}"  >
     <title>Carpetas</title>
 </head>
 <body>
-    <h1>CARPETAS</h1>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="#crearCarpeta" class="btn btn-success" data-toggle="modal"><i class="material-icons">create_new_folder</i> <span>Crear carpeta</span></a>
+                        <a href="#crearArchivo" class="btn btn-success" data-toggle="modal"><i class="material-icons">add_box</i> <span>Crear archivo</span></a>
+                    </div>
+                </div>
+            </div>
+            <div id="path">
+                
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Permisos</th>
+                        <th>Usuario</th>
+                        <th>Grupo</th>
+                        <th>Peso (KB)</th>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <!-- Modal HTML -->
+    <div id="crearCarpeta" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="mkdirform">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crear carpeta</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <br>
+                        <div class="form-group campo">
+                            <label><strong>Nombre:</strong></label>
+                            <input type="text" name="cnombre" class="form-control" required>
+                        </div>
+                    <br>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                        <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                    </div>
+                    <p id='amensaje' style="visibility: hidden;font-size: 15px;color:green">Carpeta creada correctamente</p>
+                </form>
+            </div>
+        </div>
+    </div>
+       <!-- Modal HTML -->
+       <div id="crearArchivo" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="touchform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Crear Archivo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                            <div class="form-group campo">
+                                <label><strong>Nombre (agregar extension):</strong></label>
+                                <input type="text" name="anombre" class="form-control" required>
+                            </div>
+                            <div class="form-group campo">
+                                    <label><strong>Contenido:</strong></label>
+                                    <textarea type="text" name="acontenido" style="height: 460px;" class="form-control" required></textarea>
+                            </div>
+                        <br>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                        </div>
+                        <p id='amensaje' style="visibility: hidden;font-size: 15px;color:green">Archivo creado correctamente</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <!-- Delete Modal HTML -->
+    <div id="eliminarArchivo" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="rmform">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Borrar Archivo</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Está seguro de que quiere borrar este archivo?</p>
+                        <p class="text-warning"><small>Esta acción no puede restaurarse.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                        <input type="submit" class="btn btn-danger" value="Aceptar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal HTML -->
+    <div id="eliminarCarpeta" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="rmfform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Borrar carpeta</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Está seguro de que quiere borrar esta carpeta?</p>
+                            <p class="text-warning"><small>Esta acción no puede restaurarse.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" class="btn btn-danger" value="Aceptar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+       <!-- Modal HTML -->
+       <div id="verArchivo" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="catform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Contenido Archivo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                            <div class="form-group campo">
+                                <label><strong>Nombre (agregar extension):</strong></label>
+                                <input type="text" name="avnombre" class="form-control" disabled>
+                            </div>
+                            <div class="form-group campo">
+                                    <label><strong>Contenido:</strong></label>
+                                    <textarea type="text" name="avcontenido" class="form-control" style="height: 460px;" disabled></textarea>
+                            </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+       <!-- Modal HTML -->
+       <div id="editarPermisos" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="achmodform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Editar permisos</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                        <div class="campo" style="margin-left: 35%;">
+                            <div class="form-group campo permisos">
+                            <strong class="permiso">R</strong>
+                            <strong class="permiso">W</strong>
+                            <strong class="permiso">X</strong>
+                            </div>
+                            <br>
+                            <div class="form-group campo permisos">
+                                    <p class="title">Propietario: </p>
+                                    <input type="checkbox" name="ur" class="permiso">
+                                    <input type="checkbox" name="uw" class="permiso">
+                                    <input type="checkbox" name="ux" class="permiso">
+                            </div>
+                            <br>
+                            <div class="form-group campo permisos">
+                                    <p class="title">Grupo: </p>
+                                    <input type="checkbox" name="gr" class="permiso">
+                                    <input type="checkbox" name="gw" class="permiso">
+                                    <input type="checkbox" name="gx" class="permiso">
+                            </div>
+                            <br>
+                            <div class="form-group campo permisos">
+                                    <p class="title">Otros: </p>
+                                    <input type="checkbox" name="or" class="permiso">
+                                    <input type="checkbox" name="ow" class="permiso">
+                                    <input type="checkbox" name="ox" class="permiso">   
+                            </div>
+                        </div>
+                            <br>
+                            <div class="modal-footer">
+                                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                                    <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                                </div>
+                            <p id='permensaje' style="visibility: hidden;font-size: 15px;color:green">Permisos modificados correctamente</p>
+                        
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+       <!-- Modal HTML -->
+       <div id="cambiarPropietario" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="chownform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Cambiar Propietario</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                            <div class="form-group campo">
+                                <label><strong>Nombre nuevo propietario (darwin,carlos o profesor):</strong></label>
+                                <input type="text" name="pnombre" class="form-control" required>
+                            </div>
+                        <br>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                        </div>
+                        <p id='pmensaje' style="visibility: hidden;font-size: 15px;color:green">Nuevo propietario registrado correctamente</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+       <!-- Modal HTML -->
+       <div id="copiarArchivo" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="cpform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Copiar Archivo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                            <div class="form-group campo">
+                                <label><strong>Ruta:</strong></label>
+                                <input type="text" name="cpruta_destino" class="form-control" required>
+                            </div>
+                        <br>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                        </div>
+                        <p id='pmensaje' style="visibility: hidden;font-size: 15px;color:green">Archivo copiado correctamente</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+       <!-- Modal HTML -->
+       <div id="moverArchivo" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="mvform">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Mover Archivo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <br>
+                            <div class="form-group campo">
+                                <label><strong>Ruta:</strong></label>
+                                <input type="text" name="mvruta_destino" class="form-control" required>
+                            </div>
+                        <br>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-danger" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" id="confirmar" class="btn btn-info" value="Guardar">
+                        </div>
+                        <p id='pmensaje' style="visibility: hidden;font-size: 15px;color:green">Archivo movido correctamente</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <input type="text" name="seleccionado" hidden>
 </body>
+<script src = "{{ url_for('static',filename='scripts/main.js') }}"></script>
 </html>

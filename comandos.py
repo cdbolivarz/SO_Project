@@ -16,7 +16,7 @@ Ver informacion due;o X
 
 
 def verContenido(ruta):
-    ls = str(subprocess.check_output("ls -l ficheros" + ruta, shell = True))
+    ls = str(subprocess.check_output("ls -l " + ruta, shell = True))
     ls = ls.split('\\')
     aux = []
     l = []

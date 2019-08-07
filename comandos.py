@@ -62,7 +62,7 @@ def copiarArchivo(nombre,destino):
     os.system("cp -r " + nombre + " " + destino)
 
 def editarPermisos(nombre, permisos):
-    os.system("chmod " + nombre + " " + permisos)
+    os.system("sudo chmod " + nombre + " " + permisos)
 
 def editarDueno(nombre_usuario, nombre_archivo):
-    os.system("chown -R " + nombre_usuario + " " + nombre_archivo)
+    os.system("sudo chown -R " + nombre_usuario + " " + nombre_archivo)

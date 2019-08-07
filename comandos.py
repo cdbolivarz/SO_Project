@@ -50,16 +50,16 @@ def crearCarpeta(nombre):
     os.system("mkdir " + nombre)
 
 def borrarArchivo(nombre):
-    os.system("rm -f "+ nombre)
+    os.system("sudo rm -f "+ nombre)
 
 def borrarCarpeta(nombre):
-    os.system("rm -rf " + nombre)
+    os.system("sudo rm -rf " + nombre)
 
 def moverArchivo(nombre,destino):
-    os.system("mv "+ nombre + " " + destino)
+    os.system("sudo mv "+ nombre + " " + destino)
 
 def copiarArchivo(nombre,destino):
-    os.system("cp -r " + nombre + " " + destino)
+    os.system("sudo cp -r " + nombre + " " + destino)
 
 def editarPermisos(nombre, permisos):
     os.system("sudo chmod " + nombre + " " + permisos)

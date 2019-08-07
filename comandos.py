@@ -42,8 +42,9 @@ def verContenidoArchivo(nombre):
     })
     return l
 
-def crearArchivo(nombre):
+def crearArchivo(nombre, contenido):
     os.system("touch " + nombre)
+    os.system("echo '"+contenido+"'>>"+nombre)
 
 def crearCarpeta(nombre):
     os.system("mkdir " + nombre)

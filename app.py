@@ -35,7 +35,8 @@ def verContenido():
 def crearArchivo():
 	if request.method == 'POST':
 		nombre = request.json['nombre']
-		comandos.crearArchivo(nombre)
+		contenido = request.json['contenido']
+		comandos.crearArchivo(nombre,contenido)
 		return jsonify(message=True)
 
 
